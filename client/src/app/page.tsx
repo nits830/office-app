@@ -14,10 +14,10 @@ export default function Home() {
           
           <div className="space-y-4">
             <Link
-              href="/dashboard"
+              href="/login"
               className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors block text-center"
             >
-              Go to Dashboard
+              Login with Phone
             </Link>
             
             <p className="text-sm text-gray-500">

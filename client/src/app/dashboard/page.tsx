@@ -5,8 +5,11 @@ import VoteCard from '@/components/VoteCard';
 import ElectionResults from '@/components/ElectionResults';
 import { getElections, submitVote, getElectionResults } from '@/lib/api';
 import { Election, ElectionResult } from '@/types';
+import withAuth from '@/components/withAuth';
+import { useAuth } from '@/lib/AuthContext';
 
-export default function Dashboard() {
+function Dashboard() {
+  const { user } = useAuth();
   const [elections, setElections] = useState<Election[]>([]);
   const [selectedElection, setSelectedElection] = useState<Election | null>(null);
   const [results, setResults] = useState<ElectionResult[]>([]);
@@ -52,7 +55,7 @@ export default function Dashboard() {
     try {
       // For demo purposes, using a hardcoded userId
       // In a real app, this would come from authentication context
-      const userId = 1;
+      const userId = user.id;
       
       await submitVote(userId, candidateId);
       setMessage('Vote submitted successfully!');
@@ -157,4 +160,6 @@ export default function Dashboard() {
       </div>
     </div>
   );
-} 
+}
+
+export default withAuth(Dashboard); 

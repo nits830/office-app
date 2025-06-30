@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navigation from "@/components/Navigation";
 import "./globals.css";
+import { AuthProvider } from '@/lib/AuthContext';
 
 export const metadata: Metadata = {
   title: "Office App - Association Management System",
@@ -15,10 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-50">
-        <Navigation />
-        <main>
-          {children}
-        </main>
+        <AuthProvider>
+          <Navigation />
+          <main>
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -80,4 +80,19 @@ export async function verifyOtp(phone: string, otp: string) {
     method: 'POST',
     body: JSON.stringify({ phone, otp }),
   });
-} 
+}
+
+// OTP Login APIs
+export async function sendLoginOtp(phone: string) {
+  return apiRequest<{ message: string }>('/api/auth/signin', {
+    method: 'POST',
+    body: JSON.stringify({ phone }),
+  });
+}
+
+export async function verifyLoginOtp(phone: string, otp: string) {
+  return apiRequest<{ token: string; user: any }>('/api/auth/verify-otp', {
+    method: 'POST',
+    body: JSON.stringify({ phone, otp }),
+  });
+}
