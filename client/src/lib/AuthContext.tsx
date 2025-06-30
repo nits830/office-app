@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('token');
     setToken(null);
     setUser(null);
-    router.push('/login');
+    router.push('/');
   };
 
   return (
