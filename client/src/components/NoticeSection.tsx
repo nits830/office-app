@@ -15,7 +15,7 @@ export default function NoticeSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/pdf/")
+    fetch("http://localhost:5000/api/pdf")
       .then((res) => res.json())
       .then((data) => {
         setNotices(data);
@@ -29,10 +29,10 @@ export default function NoticeSection() {
   return (
     <section className="relative bg-white border-t border-b border-blue-100 py-6 overflow-hidden">
       <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-xl font-bold text-blue-700 mb-4">Latest Notices</h2>
+        <h2 className="text-xl font-bold text-blue-700 mb-4">Latest Notices & Announcements</h2>
         <div className="relative h-80 overflow-hidden">
           <div
-            className="flex flex-col animate-vertical-loop space-y-6"
+            className="flex flex-col animate-vertical-loop divide-y divide-blue-100"
             style={{
               animationDuration: `${duration}s`,
             }}
@@ -42,22 +42,16 @@ export default function NoticeSection() {
             ) : notices.length === 0 ? (
               <div className="text-gray-500">No notices available.</div>
             ) : (
-              // Duplicate the notices for seamless looping
               [...notices, ...notices].map((notice, idx) => (
-                <div key={notice._id + '-' + idx} className="flex items-center justify-between bg-blue-50 rounded px-4 py-2 shadow-sm">
-                  <div>
-                    <div className="font-semibold text-blue-900">{notice.title}</div>
-                    <div className="text-xs text-blue-700">{new Date(notice.createdAt).toLocaleString()} by {notice.postedBy}</div>
-                  </div>
-                  <a
-                    href={notice.documentUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm font-medium"
-                  >
-                    View PDF
-                  </a>
-                </div>
+                <a
+                  key={notice._id + '-' + idx}
+                  href={notice.documentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-3 text-blue-700 hover:text-blue-900 font-semibold text-lg bg-blue-50 hover:bg-blue-100 transition"
+                >
+                  {notice.title}
+                </a>
               ))
             )}
           </div>

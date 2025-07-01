@@ -47,7 +47,7 @@ router.post('/pdf', upload.single('file'), async (req, res) => {
 });
 
 // GET /pdf - fetch all PDFs
-router.get('/pdf', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const notices = await Notice.find().sort({ createdAt: -1 });
     res.json(notices);
