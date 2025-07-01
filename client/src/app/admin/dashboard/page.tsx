@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import UserManagement from '@/components/admin/UserManagement';
+import NoticeManagement from '@/components/admin/NoticeManagement';
 
 const adminName = 'Admin'; // Replace with real admin name from context/auth if available
 
@@ -56,12 +57,7 @@ export default function AdminDashboard() {
         {/* Tab Content */}
         <div className="bg-white rounded shadow p-8 min-h-[300px]">
           {tab === 'users' && <UserManagement/>}
-          {tab === 'notices' && (
-            <div>
-              <h2 className="text-xl font-bold mb-4">Notice Management</h2>
-              <p className="text-gray-600">(Notice management features go here.)</p>
-            </div>
-          )}
+          {tab === 'notices' && <NoticeManagement />}
           {tab === 'create-election' && (
             <div>
               <h2 className="text-xl font-bold mb-4">Create an Election</h2>

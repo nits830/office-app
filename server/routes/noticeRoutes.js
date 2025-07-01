@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 const Notice = require('../models/Notice');
 
-app.use(cors());
+
 
 // Configure multer for PDF uploads
 const storage = multer.diskStorage({

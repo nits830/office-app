@@ -12,7 +12,7 @@ const voteRoutes = require('./routes/vote.route');
 const electionRoutes = require('./routes/electionRoutes');
 const pdfRoutes = require('./routes/pdf');
 const userRoutes = require('./routes/userRoutes');
-
+const noticeRoutes = require('./routes/noticeRoutes');
 
 // Enable CORS
 app.use(cors());
@@ -24,6 +24,7 @@ app.use('/vote', voteRoutes);
 app.use('/api/elections', electionRoutes);
 app.use('/api/pdf', pdfRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/notices', noticeRoutes);
 
 // MongoDB connect
 mongoose.connect(process.env.MONGODB_URI, {
