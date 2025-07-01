@@ -24,9 +24,8 @@ model User {
   isVerified  Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-
-  // This means: One user has many votes
   votes       Vote[]
+  isDeleted Boolean  @default(false)
 }
 
 model Candidate {
@@ -34,10 +33,9 @@ model Candidate {
   name        String
   isWinner    Boolean     @default(false)
   remarks     String?
-
+  post        String @default("General")
   election    Election    @relation(fields: [electionId], references: [id])
   electionId  Int
-
   createdAt   DateTime    @default(now())
   votes       Vote[]
 }
@@ -46,16 +44,12 @@ model Candidate {
 // Explanation of Vote model in PROJECT.md
 model Vote {
   id          Int       @id @default(autoincrement())
-
   user        User      @relation(fields: [userId], references: [id])
   userId      Int
-
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   candidateId Int
-
   votedYear   Int       // Optional if you prefer to query from Candidate → Election.year
   createdAt   DateTime  @default(now())
-
   @@unique([userId, votedYear])
 }
 
@@ -75,6 +69,6 @@ model Election {
   startTime  DateTime
   endTime    DateTime
   createdAt  DateTime    @default(now())
-
+  post       String @default("General")
   candidates Candidate[] // All candidates contesting this election
 }

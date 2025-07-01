@@ -58,4 +58,41 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// POST /api/elections - Create a new election for a specific post
+router.post('/', async (req, res) => {
+  try {
+    const { year, post, startTime, endTime, candidateIds } = req.body;
+    if (!year || !post || !startTime || !endTime || !candidateIds || !Array.isArray(candidateIds)) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const election = await prisma.election.create({
+      data: {
+        year,
+        post,
+        startTime: new Date(startTime),
+        endTime: new Date(endTime),
+        candidates: {
+          connect: candidateIds.map(id => ({ id })),
+        },
+      },
+      include: {
+        candidates: {
+          select: {
+            id: true,
+            name: true,
+            isWinner: true,
+            remarks: true,
+          },
+        },
+      },
+    });
+
+    res.status(201).json(election);
+  } catch (error) {
+    console.error('Error creating election:', error);
+    res.status(500).json({ error: 'Failed to create election' });
+  }
+});
+
 module.exports = router; 

@@ -1,26 +1,22 @@
-import type { Metadata } from "next";
-import Navigation from "@/components/Navigation";
-import "./globals.css";
 import { AuthProvider } from '@/lib/AuthContext';
+import './globals.css';
+import AppShell from '@/components/AppShell';
 
-export const metadata: Metadata = {
-  title: "Office App - Association Management System",
-  description: "A comprehensive association management system with secure voting capabilities",
+export const metadata = {
+  title: 'Office App',
+  description: 'Association Management System',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className="bg-gray-50">
+      <body>
         <AuthProvider>
-          <Navigation />
-          <main>
-            {children}
-          </main>
+          <AppShell>{children}</AppShell>
         </AuthProvider>
       </body>
     </html>
